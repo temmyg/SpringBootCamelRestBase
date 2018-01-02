@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Component("helloBean")
 public class HelloController {
 
-    public String greetingWorld(@PathVariable("msg")String msg){
-
+    public String greetingWorld(String msg){
         return "Hello " + msg;
     }
 }
