@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.9.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath></relativePath> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -44,6 +44,17 @@
 			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
 
+        <!-- Sql Server Related -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>6.2.2.jre8</version>
+			<!--<version>6.3.6.jre8-preview</version>-->
+		</dependency>
 
 		<!-- Camel -->
 		<dependency>

@@ -1,5 +1,6 @@
 package com.springboot.camel.rest.springboot_camel_rest_base;
 
+import com.springboot.camel.rest.springboot_camel_rest_base.model.ClubMember;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
@@ -18,12 +19,17 @@ public class RestRouteBuilder extends RouteBuilder {
 //                .get("/").to("bean:helloBean?method=greetingWorld(${header.msg})");
 
         // curl -X GET -H "msg:Nanto" http://localhost:8086/rest/sayhello/
-        rest("/sayhello")
-                .get("/").to("bean:helloBean?method=greetingWorld(${header.msg})"); //.log("${body}");
+
+
+        rest("/clubmembers")
+                .get("/").to("bean:clubBean?method=getAllMembers")
+                .post("/").type(ClubMember.class)
+                .to("bean:clubBean?method=addClubMember(${body}, ${header.msg})"); //.log("${body}");
+                //.to("bean:clubBean?method=addClubMember");
 
 //                .get("/").description("The list of all the books")
 //                .route().routeId("books-api")
-//                .bean(HelloController.class, "greetingWorld(${header.msg})")
+//                .bean(HealthClubController.class, "greetingWorld(${header.msg})")
 //                .endRest();
     }
 }

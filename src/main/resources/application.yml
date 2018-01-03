@@ -15,18 +15,18 @@
 # limitations under the License.
 #
 
-#server:
-#    port: 8086
+server:
+    port: 8086
 
 camel:
   springboot:
     # The Camel context name
     name: CamelRestBase
 
-#  component:
-#    servlet:
-#      mapping:
-#        contextPath: /rest/*
+  component:
+    servlet:
+      mapping:
+        contextPath: /rest/*
 
 mysql:
   service:
@@ -43,9 +43,9 @@ mysql:
 spring:
   # Spring JDBC configuration
   datasource:
-    url:      jdbc:mysql://${mysql.service.host}:${mysql.service.port}/${mysql.service.database}
-    username: ${mysql.service.username}
-    password: ${mysql.service.password}
+    url:      jdbc:sqlserver://localhost:1433;databaseName=Wellness
+    username: sa
+    password: Passw0rd
 
   # Spring Data JPA configuration
   jpa:
