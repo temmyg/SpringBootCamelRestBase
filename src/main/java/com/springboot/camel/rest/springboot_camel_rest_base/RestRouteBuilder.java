@@ -1,6 +1,8 @@
 package com.springboot.camel.rest.springboot_camel_rest_base;
 
 import com.springboot.camel.rest.springboot_camel_rest_base.model.ClubMember;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,16 @@ public class RestRouteBuilder extends RouteBuilder {
 //                .get("/").to("bean:helloBean?method=greetingWorld(${header.msg})");
 
         // curl -X GET -H "msg:Nanto" http://localhost:8086/rest/sayhello/
-
+        from("direct:start").to("sql:select * from healthmember?outputType=selectlist")
+//                .process(
+//                new Processor() {
+//                    @Override
+//                    public void process(Exchange exchange) throws Exception {
+//                        int i = 0;
+//                    }
+//                }
+//        )
+        .to("bean:sqlResultBean?method=processData");
 
         rest("/clubmembers")
                 .get("/").to("bean:clubBean?method=getAllMembers")
