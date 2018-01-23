@@ -14,6 +14,7 @@ public class RestRouteBuilder extends RouteBuilder {
 
         restConfiguration()   //.contextPath("/camel-rest-jpa")
                  //.host("localhost").port("8088")
+                //.bindingMode(RestBindingMode.json);
                 .bindingMode(RestBindingMode.json);
 
         // http://localhost:8086/rest/sayhello/Nanto
@@ -21,7 +22,9 @@ public class RestRouteBuilder extends RouteBuilder {
 //                .get("/").to("bean:helloBean?method=greetingWorld(${header.msg})");
 
         // curl -X GET -H "msg:Nanto" http://localhost:8086/rest/sayhello/
-        from("direct:start").to("sql:select * from healthmember?outputType=selectlist")
+        from("direct:start").to("sql:select * from healthmember?outputType=Selectlist")
+//--                .split(body()).streaming().to("bean:inspectionBean?method=reviewData").end()
+//--                .to("bean:inspectionBean?method=reviewData");
 //                .process(
 //                new Processor() {
 //                    @Override
@@ -32,10 +35,12 @@ public class RestRouteBuilder extends RouteBuilder {
 //        )
         .to("bean:sqlResultBean?method=processData");
 
+        rest("/csv").get("/").to("bean:csvBean?method=readFileContent");
+
         rest("/clubmembers")
-                .get("/").to("bean:clubBean?method=getAllMembers")
-                .post("/").type(ClubMember.class)
-                .to("bean:clubBean?method=addClubMember(${body}, ${header.msg})"); //.log("${body}");
+                .get("/").to("bean:clubBean?method=getAllMembers");
+//                .post("/").type(ClubMember.class)
+//                .to("bean:clubBean?method=addClubMember(${body}, ${header.msg})"); //.log("${body}");
                 //.to("bean:clubBean?method=addClubMember");
 
 //                .get("/").description("The list of all the books")

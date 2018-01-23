@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @Component("clubBean")
@@ -26,12 +27,13 @@ public class HealthClubController {
         return Integer.toString(rowNum) + " Row(s) Added";
     }
 
-    public Collection<ClubMember> getAllMembers() throws DataAccessException{
-        Collection<ClubMember> result = new ArrayList<>();
+    public List<ClubMember> getAllMembers() throws DataAccessException{
+        ArrayList<ClubMember> result = new ArrayList<>();
 
         String selectSttmnt = "select * from HealthMember";
-        result = jdbcTemplate.query(selectSttmnt, new ClubMemberRowMapper());
+        result = new ArrayList<>(jdbcTemplate.query(selectSttmnt, new ClubMemberRowMapper()));
+        return result; //result.get(0);
         //result.add(new ClubMember(){ { setAge(12); } });
-        return result;
+        // return result;
     }
 }
